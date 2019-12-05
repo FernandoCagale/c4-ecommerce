@@ -46,6 +46,10 @@ func (o *EventRepository) Publish(topic string, payload interface{}) (error) {
 		return err
 	}
 
+	msg.Metadata["x-message-ttl"] = "1000"
+	msg.Metadata["x-dead-letter-exchange"] = topic+"-dead"
+	msg.Metadata["x-dead-letter-routing-key"] = topic+"-dead"
+
 	err = publisher.Publish(topic, msg)
 	if err != nil {
 		fmt.Println(err.Error())
