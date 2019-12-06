@@ -4,33 +4,33 @@ import (
 	"encoding/json"
 	"github.com/FernandoCagale/c4-ecommerce/api/render"
 	"github.com/FernandoCagale/c4-ecommerce/internal/errors"
-	"github.com/FernandoCagale/c4-ecommerce/pkg/domain/ecommerce"
+	"github.com/FernandoCagale/c4-ecommerce/pkg/domain/customer"
 	"github.com/FernandoCagale/c4-ecommerce/pkg/entity"
 	"net/http"
 )
 
-type EcommerceHandler struct {
-	usecase ecommerce.UseCase
+type CustomerHandler struct {
+	usecase customer.UseCase
 }
 
-func NewEcommerce(usecase ecommerce.UseCase) *EcommerceHandler {
-	return &EcommerceHandler{
+func NewCustomer(usecase customer.UseCase) *CustomerHandler {
+	return &CustomerHandler{
 		usecase: usecase,
 	}
 }
 
-func (handler *EcommerceHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var ecommerce *entity.Ecommerce
+func (handler *CustomerHandler) Create(w http.ResponseWriter, r *http.Request) {
+	var customer *entity.Customer
 
 	decoder := json.NewDecoder(r.Body)
-	if err := decoder.Decode(&ecommerce); err != nil {
+	if err := decoder.Decode(&customer); err != nil {
 		render.ResponseError(w, err, http.StatusBadRequest)
 		return
 	}
 
 	defer r.Body.Close()
 
-	if err := handler.usecase.Create(ecommerce); err != nil {
+	if err := handler.usecase.Create(customer); err != nil {
 		switch err {
 		case errors.ErrInvalidPayload:
 			render.ResponseError(w, err, http.StatusBadRequest)
@@ -40,5 +40,5 @@ func (handler *EcommerceHandler) Create(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	render.Response(w, ecommerce, http.StatusCreated)
+	render.Response(w, customer, http.StatusCreated)
 }

@@ -1,4 +1,4 @@
-package ecommerce
+package customer
 
 import (
 	"fmt"
@@ -7,19 +7,19 @@ import (
 	"github.com/FernandoCagale/c4-ecommerce/internal/errors"
 )
 
-const TOPIC = "topic.ecommerce"
+const TOPIC = "topic.customer"
 
-type EcommerceUseCase struct {
+type CustomerUseCase struct {
 	event event.Event
 }
 
-func NewUseCase(event event.Event) *EcommerceUseCase {
-	return &EcommerceUseCase{
+func NewUseCase(event event.Event) *CustomerUseCase {
+	return &CustomerUseCase{
 		event: event,
 	}
 }
 
-func (usecase *EcommerceUseCase) Create(e *entity.Ecommerce) error {
+func (usecase *CustomerUseCase) Create(e *entity.Customer) error {
 	err := e.Validate()
 	if err != nil {
 		return errors.ErrInvalidPayload

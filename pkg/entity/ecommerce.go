@@ -6,9 +6,9 @@ import (
 )
 
 type Ecommerce struct {
-	ID       string   `json:"id"`
-	Customer Customer `json:"customer"`
-	Order    Order    `json:"order"`
+	ID       string            `json:"id"`
+	Customer CustomerEcommerce `json:"customer"`
+	Order    Order             `json:"order"`
 }
 
 func (e Ecommerce) Validate() error {
@@ -18,12 +18,12 @@ func (e Ecommerce) Validate() error {
 	)
 }
 
-type Customer struct {
+type CustomerEcommerce struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
 
-func (e Customer) Validate() error {
+func (e CustomerEcommerce) Validate() error {
 	return validation.ValidateStruct(&e,
 		validation.Field(&e.Code, validation.Required, validation.Length(1, 50)),
 		validation.Field(&e.Name, validation.Required, validation.Length(1, 50)),

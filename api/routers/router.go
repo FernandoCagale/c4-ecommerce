@@ -6,8 +6,9 @@ import (
 )
 
 type SystemRoutes struct {
-	healthHandler *handlers.HealthHandler
+	healthHandler    *handlers.HealthHandler
 	ecommerceHandler *handlers.EcommerceHandler
+	customerHandler  *handlers.CustomerHandler
 }
 
 func (routes *SystemRoutes) MakeHandlers() *mux.Router {
@@ -15,13 +16,18 @@ func (routes *SystemRoutes) MakeHandlers() *mux.Router {
 
 	r.HandleFunc("/health", routes.healthHandler.Health).Methods("GET")
 	r.HandleFunc("/ecommerce", routes.ecommerceHandler.Create).Methods("POST")
+	r.HandleFunc("/customers", routes.customerHandler.Create).Methods("POST")
 
 	return r
 }
 
-func NewSystem(healthHandler *handlers.HealthHandler, ecommerceHandler *handlers.EcommerceHandler) *SystemRoutes {
+func NewSystem(healthHandler *handlers.HealthHandler,
+	ecommerceHandler *handlers.EcommerceHandler,
+	customerHandler *handlers.CustomerHandler) *SystemRoutes {
+
 	return &SystemRoutes{
-		healthHandler: healthHandler,
+		healthHandler:    healthHandler,
 		ecommerceHandler: ecommerceHandler,
+		customerHandler:  customerHandler,
 	}
 }

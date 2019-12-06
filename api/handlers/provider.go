@@ -2,4 +2,4 @@ package handlers
 
 import "github.com/google/wire"
 
-var Set = wire.NewSet(NewHealth, NewEcommerce)
+var Set = wire.NewSet(NewHealth, NewEcommerce, NewCustomer)
