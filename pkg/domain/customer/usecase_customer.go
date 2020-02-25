@@ -1,13 +1,12 @@
 package customer
 
 import (
-	"fmt"
+	"github.com/FernandoCagale/c4-ecommerce/internal/errors"
 	"github.com/FernandoCagale/c4-ecommerce/internal/event"
 	"github.com/FernandoCagale/c4-ecommerce/pkg/entity"
-	"github.com/FernandoCagale/c4-ecommerce/internal/errors"
 )
 
-const TOPIC = "topic.customer"
+const QUEUE = "notify.customer"
 
 type CustomerUseCase struct {
 	event event.Event
@@ -25,8 +24,7 @@ func (usecase *CustomerUseCase) Create(e *entity.Customer) error {
 		return errors.ErrInvalidPayload
 	}
 
-	if err := usecase.event.Publish(TOPIC, e); err != nil {
-		fmt.Println(err.Error())
+	if err := usecase.event.PublishQueue(QUEUE, e); err != nil {
 		return err
 	}
 

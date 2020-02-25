@@ -6,7 +6,6 @@ import (
 )
 
 type Ecommerce struct {
-	ID       string            `json:"id"`
 	Customer CustomerEcommerce `json:"customer"`
 	Order    Order             `json:"order"`
 }

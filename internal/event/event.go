@@ -1,5 +1,10 @@
 package event
 
+import "github.com/ThreeDotsLabs/watermill/message"
+
 type Event interface {
-	Publish(topic string, payload interface{}) (error)
+	SubscribeExchange(topic, queue string) (<-chan *message.Message, error)
+	SubscribeQueue(topic string) (<-chan *message.Message, error)
+	PublishExchange(topic string, payload interface{}) (error)
+	PublishQueue(topic string, payload interface{}) (error)
 }

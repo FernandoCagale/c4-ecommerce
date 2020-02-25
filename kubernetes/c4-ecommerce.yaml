@@ -23,9 +23,9 @@ items:
     labels:
       app: c4-ecommerce
   data:
-    AMQP_URI: "amqp://guest:guest@rabbitmq:5672"
+    AMQP_URI: "amqp://guest:guest@rabbitmq.message.svc.cluster.local:5672/"
     PORT: "8080"
-- apiVersion: extensions/v1beta1
+- apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: c4-ecommerce
@@ -34,6 +34,9 @@ items:
       app: c4-ecommerce
   spec:
     replicas: 1
+    selector:
+      matchLabels:
+        app: c4-ecommerce
     template:
       metadata:
         labels:

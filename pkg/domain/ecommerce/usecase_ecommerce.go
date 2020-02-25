@@ -1,13 +1,12 @@
 package ecommerce
 
 import (
-	"fmt"
+	"github.com/FernandoCagale/c4-ecommerce/internal/errors"
 	"github.com/FernandoCagale/c4-ecommerce/internal/event"
 	"github.com/FernandoCagale/c4-ecommerce/pkg/entity"
-	"github.com/FernandoCagale/c4-ecommerce/internal/errors"
 )
 
-const TOPIC = "topic.ecommerce"
+const EXCHANGE = "ecommerce"
 
 type EcommerceUseCase struct {
 	event event.Event
@@ -25,8 +24,7 @@ func (usecase *EcommerceUseCase) Create(e *entity.Ecommerce) error {
 		return errors.ErrInvalidPayload
 	}
 
-	if err := usecase.event.Publish(TOPIC, e); err != nil {
-		fmt.Println(err.Error())
+	if err := usecase.event.PublishExchange(EXCHANGE, e); err != nil {
 		return err
 	}
 
