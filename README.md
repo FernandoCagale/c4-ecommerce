@@ -1,4 +1,16 @@
-**c4-ecommerce - docker**
+# c4-ecommerce
+
+## Flow [c4-kustomize](https://github.com/FernandoCagale/c4-kustomize)
+
+## Dependencies
+
+`Docker Rabbitmq`
+
+```sh
+$ docker run --network host --name rabbit -d rabbitmq
+```
+
+## Build Docker
 
 ```sh
 $   docker build -t c4-ecommerce .
@@ -8,8 +20,13 @@ $   docker build -t c4-ecommerce .
 $   docker run -d --name c4-ecommerce -p 8080:8080 c4-ecommerce
 ```
 
-**c4-ecommerce - local**
+## Kubernetes [YAML](https://github.com/FernandoCagale/c4-kustomize/tree/master/c4-ecommerce/base)
 
+    *   deployment.yaml
+    *   service.yaml
+    *   virtualservice.yaml
+
+## Running local
 
 ```sh
 $   go mod download
@@ -25,19 +42,6 @@ $   go mod vendor
 $   go get -u github.com/google/wire/cmd/wire
 ```
 
-`generate wire_gen.go`
-
 ```sh
-$   wire
-```
-
-`generate build`
-
-```sh
-$   go build -o bin/application
-```
-
-
-```sh
-$   ./bin/application
+$   ./scripts/start.sh
 ```
