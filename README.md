@@ -1,6 +1,22 @@
 # c4-ecommerce [Flow](https://github.com/FernandoCagale/c4-kustomize)
 
-## Dependencies
+### Docker
+
+`running docker multi-stage builds and publish c4-ecommerce`
+
+```sh
+$   ./scripts/publish.sh
+```
+
+### Kubernetes and Istio - [YAML](https://github.com/FernandoCagale/c4-kustomize/tree/master/c4-ecommerce/base)
+
+    *   deployment.yaml
+    *   service.yaml
+    *   virtualservice.yaml
+
+# Running local
+
+### Dependencies [docker-compose](https://github.com/FernandoCagale/c4-kustomize/blob/master/docker-compose.yml)
 
 `Docker Rabbitmq`
 
@@ -8,23 +24,7 @@
 $ docker run --network host --name rabbit -d rabbitmq
 ```
 
-## Build Docker
-
-```sh
-$   docker build -t c4-ecommerce .
-```
-
-```sh
-$   docker run -d --name c4-ecommerce -p 8080:8080 c4-ecommerce
-```
-
-## Kubernetes [YAML](https://github.com/FernandoCagale/c4-kustomize/tree/master/c4-ecommerce/base)
-
-    *   deployment.yaml
-    *   service.yaml
-    *   virtualservice.yaml
-
-## Running local
+### Standard Go Project [Layout](https://github.com/golang-standards/project-layout)
 
 ```sh
 $   go mod download
@@ -34,7 +34,7 @@ $   go mod download
 $   go mod vendor
 ```
 
-`download wire "dependency injection"`
+`download "dependency injection"` [wire](https://github.com/google/wire)
 
 ```sh
 $   go get -u github.com/google/wire/cmd/wire
